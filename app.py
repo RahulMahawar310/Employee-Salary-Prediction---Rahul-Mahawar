@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 #Load the trained model
-model = joblib.load("best_model.pk1")
+model = joblib.load("best_model.pkl")
 
 st.set_page_config(page_title="Employee Salary Prediction", page_icon="💼", layout="centered")
 
