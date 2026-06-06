@@ -12,15 +12,12 @@ st.markdown("Predict whether an employee earns **>50K** or **<=50K**")
 
 @st.cache_resource
 def train_model():
-    import urllib.request
-    import io
-    
     url = "https://raw.githubusercontent.com/RahulMahawar310/Employee-Salary-Prediction---Rahul-Mahawar/main/adult%203.csv"
-    
+
     try:
         data = pd.read_csv(url)
     except:
-        st.error("Dataset load nahi hua!")
+        st.error("Failed to load dataset!")
         return None, None
 
     data.occupation.replace({'?': 'others'}, inplace=True)
@@ -47,11 +44,11 @@ def train_model():
 
     return model, scaler
 
-st.info("Model load ho raha hai — pehli baar thoda time lagega...")
+st.info("Loading model — this may take a moment on first run...")
 model, scaler = train_model()
 
 if model:
-    st.success("Model ready!")
+    st.success("Model is ready!")
     st.sidebar.header("Employee Details")
 
     age = st.sidebar.slider("Age", 17, 75, 30)
@@ -89,6 +86,6 @@ if model:
     if st.button("🔍 Predict Salary"):
         prediction = model.predict(input_scaled)
         if ">50K" in prediction[0]:
-            st.success("✅ Salary > $50,000 per year")
+            st.success("✅ Prediction: Salary > $50,000 per year")
         else:
-            st.warning("📊 Salary ≤ $50,000 per year")
+            st.warning("📊 Prediction: Salary ≤ $50,000 per year")
